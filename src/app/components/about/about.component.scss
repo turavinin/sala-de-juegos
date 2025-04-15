@@ -1,0 +1,16 @@
+.about-card {
+    max-width: 400px;
+  }
+
+.about-header-image {
+    background-image: url("../../../../public/utn.png");
+    background-size: cover;
+    background-position: center;
+  }
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
