@@ -16,6 +16,13 @@
     mat-card-title, mat-card-subtitle {
       color: rgb(255, 255, 255);
     }
+
+    .profile-description {
+      flex: 1;
+      background-image: url('../../../../public/anton.jpg');
+      background-size: cover;
+      background-position: center;
+    }
   }
 
   .profile-header-image {
