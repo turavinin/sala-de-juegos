@@ -1,17 +1,37 @@
-<div class="card-container">
-    <mat-card class="about-card" appearance="outlined">
-        <mat-card-header>
-          <div mat-card-avatar class="about-header-image"></div>
-          <mat-card-title>Antón Turavínin</mat-card-title>
-          <mat-card-subtitle>Laboratorio de Programación IV</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src="anton.jpg" alt="Foto de Anton Turavinin">
-        <mat-card-content>
-          <p>
-            Casino: 
-            El jugador apuesta sus puntos en un tragamonedas, el cual tiene 5 ruedas. 
-            Si el jugador obtiene 5 ruedas iguales, gana 100% de sus puntos apostados.
-          </p>
-        </mat-card-content>
-      </mat-card>
+<div class="about-container">
+  <mat-card class="profile-card">
+    <mat-card-header>
+      <div mat-card-avatar class="profile-header-image"></div>
+      <mat-card-title><strong>Antón Turavínin</strong></mat-card-title>
+      <mat-card-subtitle>Laboratorio de Programación IV</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="profile-description">
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="casino-card">
+    <div class="casino-header-image">
+      <mat-card-header class="casino-header">
+      </mat-card-header>
+    </div>
+    <mat-card-content class="casino-description">
+      <h2>🎰 ¡Bienvenido al Tragamonedas Virtual! 🎰</h2>
+      <p>Poné a prueba tu suerte en nuestro clásico juego de tragamonedas al estilo fichines. ¡Simple, rápido y emocionante!</p>
+    
+      <h3>¿Cómo se juega?</h3>
+      <p>Tenés una cantidad de puntos disponibles. En cada tirada, apostás la cantidad que quieras y el sistema generará cinco imágenes al azar.</p>
+    
+      <h3>¿Cómo se gana?</h3>
+      <p>Según cuántas imágenes iguales te salgan en una misma tirada, podés multiplicar tu apuesta:</p>
+      <ul>
+        <li>🏆 <strong>5 imágenes iguales:</strong> ¡Ganás el 100% de lo apostado!</li>
+        <li>🥈 <strong>4 imágenes iguales:</strong> Te llevás el 50% de la apuesta.</li>
+        <li>🥉 <strong>3 imágenes iguales:</strong> Ganás el 25% de lo apostado.</li>
+        <li>🤝 <strong>2 imágenes iguales:</strong> No ganás, pero tampoco perdés — se te devuelve la apuesta.</li>
+        <li>❌ <strong>Ninguna igual:</strong> Perdés lo apostado.</li>
+      </ul>
+    
+      <p><strong>¡Jugá responsablemente y divertite probando tu suerte!</strong></p>
+    </mat-card-content>
+  </mat-card>
 </div>

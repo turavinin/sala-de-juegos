@@ -1,16 +1,58 @@
-.about-card {
-    max-width: 400px;
+.about-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  gap: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: rgb(11, 11, 42);
+
+  .profile-card {
+    width: 400px;
+    margin: 0;
+    border-radius: 12px;
+    background-color: #30344c;
+    
+    mat-card-title, mat-card-subtitle {
+      color: rgb(255, 255, 255);
+    }
+
+    .profile-description {
+      flex: 1;
+      background-image: url('../../../../public/anton.jpg');
+      background-size: cover;
+      background-position: center;
+    }
   }
 
-.about-header-image {
+  .profile-header-image {
     background-image: url("../../../../public/utn.png");
     background-size: cover;
     background-position: center;
   }
 
-.card-container {
+  .casino-card {
+    flex: 1;
+    margin: 0;
+    border-radius: 12px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    overflow-y: auto;
+
+    mat-card-header {
+      padding: 0;
+      height: 140px;
+      background-image: url('../../../../public/casino-image.jpeg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    mat-card-content {
+      padding: 1.5rem;
+      background-color: #30344c;
+      color: white;
+      flex: 1;
+      overflow-y: auto;
+    }
   }
+}
