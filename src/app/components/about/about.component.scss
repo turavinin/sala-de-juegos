@@ -5,13 +5,16 @@
   gap: 24px;
   padding: 24px;
   box-sizing: border-box;
-  background-color: rgb(11, 11, 42);
+  background-image: url('../../../../public/background1.png');
+  background-size: cover;
+  background-position: center;
+  background-position: center top -80px;
 
   .profile-card {
     width: 400px;
     margin: 0;
     border-radius: 12px;
-    background-color: #30344c;
+    background-color: rgba(0, 0, 0, 0.9);
     
     mat-card-title, mat-card-subtitle {
       color: rgb(255, 255, 255);
@@ -42,14 +45,14 @@
     mat-card-header {
       padding: 0;
       height: 140px;
-      background-image: url('../../../../public/casino-image.jpeg');
+      background-image: url('../../../../public/casino1.png');
       background-size: cover;
       background-position: center;
     }
 
     mat-card-content {
       padding: 1.5rem;
-      background-color: #30344c;
+      background-color: rgba(122, 91, 46, 0.9);
       color: white;
       flex: 1;
       overflow-y: auto;

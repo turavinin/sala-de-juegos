@@ -65,13 +65,7 @@ export class RegisterComponent {
           if (result.message === "User already exists") { this.snackbar.open("El usuario ya existe.", "Cerrar", { duration: 6000}); }
           else { this.snackbar.open("Error al crear el usuario. Intente nuevamente.", "Cerrar", { duration: 6000}); }
         }
-
       })
     }
   }
-
-
-
-
-
 }
