@@ -9,5 +9,5 @@ export const routes: Routes = [
     { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },
     { path: 'register', loadComponent: () => import('./components/register/register.component').then(m => m.RegisterComponent) },
     { path: 'about', loadComponent: () => import('./components/about/about.component').then(m => m.AboutComponent) },
-    { path: '**', loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent) }
+    { path: '**', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) }
 ];
