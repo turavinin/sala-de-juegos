@@ -1,1 +1,32 @@
-<p>Aca estará el login</p>
+
+<div class="login-container">
+    <mat-card class="login-card">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <h2>Iniciar sesión</h2>
+      
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" required>
+            <mat-error *ngIf="email.hasError('required')">El email es obligatorio</mat-error>
+            <mat-error *ngIf="email.hasError('email')">Formato de email inválido</mat-error>
+          </mat-form-field>
+      
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" type="password" required>
+            <mat-error *ngIf="password.hasError('required')">La contraseña es obligatoria</mat-error>
+            <mat-error *ngIf="password.hasError('minlength')">
+              La contraseña debe tener al menos 6 caracteres
+            </mat-error>
+          </mat-form-field>
+
+          <div class="button-container">
+            <button mat-raised-button [disabled]="loading" color="primary" type="submit" [disabled]="loginForm.invalid"> Iniciar sesión </button>
+            <button mat-raised-button [disabled]="loading" class="create-account-button"[routerLink]="['/register']"> Crear cuenta </button>
+          </div>
+        </form>
+      </mat-card>
+
+      <button mat-raised-button [disabled]="loading" (click)="setAdminData()"> Datos admin </button>
+</div>
+<router-outlet />

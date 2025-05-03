@@ -4,9 +4,10 @@ import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'about', component: AboutComponent },
-    { path: '**', component: AboutComponent }
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'home', loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent) },
+    { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },
+    { path: 'register', loadComponent: () => import('./components/register/register.component').then(m => m.RegisterComponent) },
+    { path: 'about', loadComponent: () => import('./components/about/about.component').then(m => m.AboutComponent) },
+    { path: '**', loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent) }
 ];
