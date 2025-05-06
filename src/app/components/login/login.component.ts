@@ -24,7 +24,7 @@ export class LoginComponent {
 
   private _adminEmail = "kahiv74096@firain.com";
   private _adminPassword = "123456";
-  private _snackBarDuration = 6000; // Duration in milliseconds
+  private _snackBarDuration = 6000;
 
   constructor(private fb: FormBuilder, 
               private supabase: SupabaseService, 
@@ -64,7 +64,7 @@ export class LoginComponent {
         return;
       }
 
-      this.router.navigate(["about"]);
+      this.router.navigate(["home"]);
     });
   }
 

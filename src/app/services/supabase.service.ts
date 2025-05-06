@@ -27,10 +27,9 @@ export class SupabaseService {
 
    private async _registerAsync(email: string, password: string, name: string) {
     try {
-      if (await this._emailExists(email)) { return { success: false, message: "User already exists" }; }
-
       const response = await this.client.auth.signUp({ email: email, password: password });
       if (response.error) return { success: false, message: response.error.message};
+      if (response.data.user?.identities?.length === 0) return { success: false, message: "User already exists" };
 
       var insertResponse = await this.client.from('user_info').insert({ name: name, auth_id: response.data.user?.id})
 
@@ -52,16 +51,5 @@ export class SupabaseService {
     } catch {
       return {success: false, message: "Error"};
    }
-  }
-
-  private async _emailExists(email: string) {
-    try {
-      const response = await this.client.from('users').select('email').eq('email', email);
-
-      if (response.status === 404) return false;
-      return true;
-    } catch {
-      return { success: false, message: "Error" };
-    }
   }
 }

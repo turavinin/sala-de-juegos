@@ -1,0 +1,15 @@
+<mat-toolbar class="navbar">
+    <div class="logo-container" (click)="goToHome()">
+        <img src="/sala-de-juegos-transparente.png" alt="Sala de Juegos" />
+      </div>
+  
+    <span class="spacer"></span>
+  
+    <button mat-icon-button [routerLink]="['/home']" matTooltip="Inicio">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button (click)="logout()" matTooltip="Salir">
+      <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>
+<router-outlet></router-outlet>
