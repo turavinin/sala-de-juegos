@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, Session, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 import { from, Observable } from 'rxjs';
 import { N } from '@angular/cdk/keycodes';
@@ -24,6 +24,13 @@ export class SupabaseService {
     return from(this._registerAsync(email, password, name));
    }
 
+   getSession(): Promise<Session | null> {
+    return this.client.auth.getSession().then(({ data }) => data.session);
+  }
+
+  logout(): Promise<void> {
+    return this.client.auth.signOut().then(() => {});
+  }
 
    private async _registerAsync(email: string, password: string, name: string) {
     try {
