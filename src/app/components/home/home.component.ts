@@ -26,6 +26,7 @@ export class HomeComponent {
   async ngOnInit() {
     this.messages = await this.supabase.getRecentMessages();
     this.subscription = this.supabase.onNewMessages((newMsg) => { this.messages.push(newMsg);});
+    this.currentUserId = await this.supabase.getUserId();
   }
 
   sendMessage() {

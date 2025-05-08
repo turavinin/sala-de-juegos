@@ -5,7 +5,7 @@
   
       <mat-list class="chat-messages">
         <mat-list-item *ngFor="let msg of messages">
-          <div class="message-bubble">
+          <div [ngClass]="{ 'my-message-bubble': msg.user_id === currentUserId, 'message-bubble': msg.user_id !== currentUserId }">
             <strong>{{ msg.user_name }}:</strong> {{ msg.content }}
             <div class="timestamp">{{ msg.created_at | date:'shortTime' }}</div>
           </div>
