@@ -22,8 +22,11 @@ export class LoginComponent {
   loginForm: FormGroup;
   loading = false;
 
-  private _adminEmail = "kahiv74096@firain.com";
-  private _adminPassword = "123456";
+  private _user1Email = "kahiv74096@firain.com";
+  private _user1Password = "123456";
+  private _user2Email = "cesoro6932@exitings.com";
+  private _user2Password = "123456";
+
   private _snackBarDuration = 6000;
 
   constructor(private fb: FormBuilder, 
@@ -68,9 +71,13 @@ export class LoginComponent {
     });
   }
 
-  setAdminData(): void {
-    this.password.setValue(this._adminPassword);
-    this.email.setValue(this._adminEmail);
+  setUserData(user: number): void {
+    
+    const userEmail = user === 1 ? this._user1Email : this._user2Email;
+    const userPassword = user === 1 ? this._user1Password : this._user2Password;
+
+    this.password.setValue(userPassword);
+    this.email.setValue(userEmail);
   }
 
   private createLoginForm() {

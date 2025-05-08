@@ -26,6 +26,7 @@
         </form>
       </mat-card>
 
-      <button mat-raised-button [disabled]="loading" (click)="setAdminData()"> Datos admin </button>
+      <button mat-raised-button class="user-button" [disabled]="loading" (click)="setUserData(1)"> Usuario 1 </button>
+      <button mat-raised-button class="user-button" [disabled]="loading" (click)="setUserData(2)"> Usuario 2 </button>
 </div>
 <router-outlet />
