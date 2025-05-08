@@ -16,15 +16,15 @@ export class SupabaseService {
     this.client = createClient(environment.supabaseUrl, environment.supabaseKey);
    }
 
-   isValidLogin(email: string, password: string): Observable<{ success: boolean; message: string }> {
+  isValidLogin(email: string, password: string): Observable<{ success: boolean; message: string }> {
     return from(this._isValidLogin(email, password));
    }
 
-   createUser(email: string, password: string, name: string): Observable<{ success: boolean; message: string }> {
+  createUser(email: string, password: string, name: string): Observable<{ success: boolean; message: string }> {
     return from(this._registerAsync(email, password, name));
    }
 
-   getSession(): Promise<Session | null> {
+  getSession(): Promise<Session | null> {
     return this.client.auth.getSession().then(({ data }) => data.session);
   }
 

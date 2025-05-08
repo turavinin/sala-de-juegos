@@ -26,10 +26,17 @@
                 </mat-error>
               </mat-form-field>
 
-              <button mat-raised-button class="register-button" color="primary" type="submit" [disabled]="registerForm.invalid">
-                <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20"></mat-progress-spinner>
-                <span *ngIf="!loading">Registrarse</span>
-              </button>
+              <div class="button-container">
+                <button mat-raised-button class="register-button" color="primary" type="submit" [disabled]="registerForm.invalid">
+                  <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20"></mat-progress-spinner>
+                  <span *ngIf="!loading">Registrarse</span>
+                </button>
+  
+                <button mat-raised-button class="register-button" color="primary" type="button" (click)="onCancel()">
+                  <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20"></mat-progress-spinner>
+                  <span *ngIf="!loading">Cancelar</span>
+                </button>
+              </div>
         </form>
     </mat-card>
 </div>

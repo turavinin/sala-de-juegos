@@ -68,4 +68,9 @@ export class RegisterComponent {
       })
     }
   }
+
+  onCancel() {
+    this.registerForm.reset();
+    this.router.navigate(['login']);
+  }
 }

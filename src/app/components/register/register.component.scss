@@ -28,5 +28,13 @@
   }
 
   .register-button {
-    margin-top: 16px ;
+    margin-top: 16px;
+    width: 50%;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
