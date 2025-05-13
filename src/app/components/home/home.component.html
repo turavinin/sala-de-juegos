@@ -1,5 +1,34 @@
-<h1>Sala de Juegos</h1>
-<p>Bienvenido a Sala de Juegos!</p>
-
-<button (click)="goTo('about')" >Ir a Quien Soy</button>
-<button (click)="goTo('login')" >Ir a Login</button>
+<div class="home-container">
+    <!-- Chat a la izquierda -->
+    <mat-card class="chat-card">
+      <mat-card-title>Chat</mat-card-title>
+  
+      <mat-list class="chat-messages">
+        <mat-list-item *ngFor="let msg of messages">
+          <div [ngClass]="{ 'my-message-bubble': msg.user_id === currentUserId, 'message-bubble': msg.user_id !== currentUserId }">
+            <strong>{{ msg.user_name }}:</strong> {{ msg.content }}
+            <div class="timestamp">{{ msg.created_at | date:'shortTime' }}</div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+  
+      <div class="chat-input-container">
+        <mat-form-field class="chat-input-field" appearance="outline">
+          <input
+            matInput
+            [(ngModel)]="newMessage"
+            (keyup.enter)="sendMessage()"
+            placeholder="Escribí tu mensaje..."
+          />
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="sendMessage()">Enviar</button>
+      </div>
+    </mat-card>
+  
+    <div class="cards-container">
+      <mat-card class="ahorcado-card"></mat-card>
+      <mat-card class="mayor-card"></mat-card>
+      <mat-card class="preguntados-card"></mat-card>
+      <mat-card class="casino-card"></mat-card>
+    </div>
+  </div>

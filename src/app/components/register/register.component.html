@@ -1,0 +1,42 @@
+<div class="register-container">
+    <mat-card class="register-card">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <h2>Crear cuenta</h2>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" type="name" required>
+                <mat-error *ngIf="name.hasError('required')">El nombre es obligatorio</mat-error>
+                <mat-error *ngIf="name.hasError('name')">Formato del nombre inválido</mat-error>
+              </mat-form-field>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" required>
+                <mat-error *ngIf="email.hasError('required')">El email es obligatorio</mat-error>
+                <mat-error *ngIf="email.hasError('email')">Formato de email inválido</mat-error>
+              </mat-form-field>
+          
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password" type="password" required>
+                <mat-error *ngIf="password.hasError('required')">La contraseña es obligatoria</mat-error>
+                <mat-error *ngIf="password.hasError('minlength')">
+                  La contraseña debe tener al menos 6 caracteres
+                </mat-error>
+              </mat-form-field>
+
+              <div class="button-container">
+                <button mat-raised-button class="register-button" color="primary" type="submit" [disabled]="registerForm.invalid">
+                  <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20"></mat-progress-spinner>
+                  <span *ngIf="!loading">Registrarse</span>
+                </button>
+  
+                <button mat-raised-button class="register-button" color="primary" type="button" (click)="onCancel()">
+                  <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20"></mat-progress-spinner>
+                  <span *ngIf="!loading">Cancelar</span>
+                </button>
+              </div>
+        </form>
+    </mat-card>
+</div>
