@@ -72,6 +72,14 @@ export class SupabaseService {
     return userId;
   }
 
+  createSurvey(surveyData: any): Observable<{ success: boolean; message: string }> {
+    return from(this._createSurvey(surveyData));
+  }
+
+  surveyAlreadyTaken(): Observable<{ success: boolean; message: string }> {
+    return from(this._surveyAlreadyTaken());
+  }
+
    private async _registerAsync(email: string, password: string, name: string) {
     try {
       const response = await this.client.auth.signUp({ email: email, password: password });
@@ -91,7 +99,6 @@ export class SupabaseService {
    private async _isValidLogin(email: string, password: string) {
     try {
       const response = await this.client.auth.signInWithPassword( {email: email, password: password});
-      console.log("login response: ", response);
       if (response.error) return { success: false, message: response.error.message};
 
       return {success: true, message: "OK"};
@@ -113,6 +120,37 @@ export class SupabaseService {
       const response = await this.client.from('messages').insert({ content: message, user_id: userId, user_name: userName });
 
       if (response.error) return { success: false, message: response.error.message};
+      return { success: true, message: "OK" };
+
+    } catch (error) {
+      return {success: false, message: "Error"};
+    }
+  }
+
+  private async _createSurvey(surveyData: any) {
+    try {
+      const userId = await this.getUserId();
+      if (!userId) return { success: false, message: "User ID not found"};
+
+      const response = await this.client.from('survey').insert({ ...surveyData, user_id: userId });
+
+      if (response.error) return { success: false, message: response.error.message};
+      return { success: true, message: "OK" };
+
+    } catch (error) {
+      return {success: false, message: "Error"};
+    }
+  }
+
+  private async _surveyAlreadyTaken() {
+    try {
+      const userId = await this.getUserId();
+      if (!userId) return { success: false, message: "User ID not found"};
+
+      const response = await this.client.from('survey').select('*').eq('user_id', userId);
+
+      if (response.error) return { success: false, message: response.error.message};
+      if (response.data?.length === 0) return { success: false, message: "Survey not found"};
       return { success: true, message: "OK" };
 
     } catch (error) {

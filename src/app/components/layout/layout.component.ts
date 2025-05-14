@@ -5,6 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { SupabaseService } from '../../services/supabase.service';
 import { ElementRef } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MatIconModule, MatToolbarModule, RouterModule],
@@ -13,7 +14,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class LayoutComponent {
 
- constructor(private router: Router, private supabaseService: SupabaseService) {}
+ constructor(private router: Router, private supabaseService: SupabaseService, private snackbar: MatSnackBar) {}
  isBouncing = false;
 
  logout() {
@@ -30,11 +31,23 @@ export class LayoutComponent {
     this.router.navigate(["about"]);
   }
 
+  goToSurvey() {
+
+    this.supabaseService.surveyAlreadyTaken().subscribe(resp => {
+      if (resp.success === true) {
+        this.snackbar.open("Ya realizaste la encuesta ¡Gracias!", "Cerrar", { duration: 6000});
+      }
+      else {
+        this.router.navigate(["survey"]);
+      }
+    });
+  }
+
   animateIcon(icon: MatIcon) {
     const el = icon._elementRef.nativeElement as HTMLElement;
   
     el.classList.remove('bounce');
-    void el.offsetWidth; // forzar reflow
+    void el.offsetWidth;
     el.classList.add('bounce');
   }
 }

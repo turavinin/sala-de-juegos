@@ -1,8 +1,10 @@
 mat-icon {
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
-  font-size: 24px;
+  font-size: 40px;
   margin-left: 10px;
+  height: 100%;
+  width: 100%;
 
   &.bounce {
     animation: bounce 0.3s;
@@ -45,6 +47,7 @@ mat-icon {
 .icon-container {
     display: flex;
     align-items: center;
+    margin-right: 20px;
   }
 
   
