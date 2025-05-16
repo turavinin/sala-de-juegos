@@ -3,6 +3,7 @@ import { createClient, Session, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 import { from, Observable } from 'rxjs';
 import { N } from '@angular/cdk/keycodes';
+import { Results } from '../models/results.model';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,10 @@ export class SupabaseService {
       .subscribe();
   }
 
+  saveGamePoints(points:number): Observable<{ success: boolean; message: string }>  {
+    return from(this._saveUserPoints(points));
+  }
+
   async getRecentMessages() {
     const { data, error } = await this.client
       .from('messages')
@@ -70,6 +75,13 @@ export class SupabaseService {
 
     const userId = await this.client.from('user_info').select('id').eq('auth_id', userIdAuth).then(({ data }) => data ? data[0]?.id : null);
     return userId;
+  }
+
+  async getUserAuthId() {
+    const userIdAuth = await this.client.auth.getUser().then(({ data }) => data.user?.id);
+
+    if (!userIdAuth) return null;
+    return userIdAuth;
   }
 
   createSurvey(surveyData: any): Observable<{ success: boolean; message: string }> {
@@ -156,5 +168,53 @@ export class SupabaseService {
     } catch (error) {
       return {success: false, message: "Error"};
     }
+  }
+
+  private async _saveUserPoints(points: number) {
+    const userAuthId = await this.getUserAuthId();
+    if (!userAuthId) return { success: false, message: "User ID not found"};
+    const userLastPointsData = await this.client.from('results')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .eq('auth_id', userAuthId)
+      .then(({ data }) => data ? data.map((item: any) => ({
+      id: item.id,
+      auth_id: item.auth_id,
+      points: item.points,
+      created_at: item.created_at,
+      total_points: item.total_points
+      })) : null);
+
+      console.log('userLastPointsData', userLastPointsData);
+
+    let lastTotalPoints = 0;
+    let userId = 0;
+    let created_at = '';
+
+    if (userLastPointsData && userLastPointsData.length > 0) {
+      lastTotalPoints = userLastPointsData[0].total_points || 0;
+      userId = userLastPointsData[0].id || 0;
+      created_at = userLastPointsData[0].created_at || '';
+    }
+
+    const userPointsToSave: Results = {
+      id: userId,
+      created_at: created_at,
+      auth_id: userAuthId,
+      points: points,
+      total_points: lastTotalPoints <= 0 ? points : lastTotalPoints + points,
+    }
+
+    console.log('userPointsToSave', userPointsToSave);
+    
+    delete (userPointsToSave as any).id;
+    delete (userPointsToSave as any).created_at;
+    await this.client.from('results').insert(userPointsToSave).then(({ data, error }) => {
+      if (error) return { success: false, message: error.message};
+      return { success: true, message: "OK" };
+    });
+
+    return { success: true, message: "OK" };
   }
 }

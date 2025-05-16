@@ -26,9 +26,9 @@
     </mat-card>
   
     <div class="cards-container">
-      <mat-card class="ahorcado-card"></mat-card>
-      <mat-card class="mayor-card"></mat-card>
-      <mat-card class="preguntados-card"></mat-card>
-      <mat-card class="casino-card"></mat-card>
+      <mat-card class="ahorcado-card" (click)="goTo(ahorcadoGamePath)"></mat-card>
+      <mat-card class="mayor-card" (click)="goTo(mayorMenorGamePath)"></mat-card>
+      <mat-card class="preguntados-card" (click)="goTo(preguntadosGamePath)"></mat-card>
+      <mat-card class="tragamonedas-card" (click)="goTo(tragamonedasGamePath)"></mat-card>
     </div>
   </div>

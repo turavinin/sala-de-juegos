@@ -21,6 +21,11 @@ export class HomeComponent {
   subscription: any;
   currentUserId: string | null = null;
 
+  ahorcadoGamePath = 'games/ahorcado';
+  preguntadosGamePath = 'games/preguntados';
+  mayorMenorGamePath = 'games/mayor-menor';
+  tragamonedasGamePath = 'games/tragamonedas';
+
   constructor(private router: Router, private supabase: SupabaseService) {}
 
   async ngOnInit() {
