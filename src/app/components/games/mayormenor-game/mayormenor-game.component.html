@@ -1,1 +1,31 @@
-<p>mayormenor-game works!</p>
+<div class="container">
+    <div class="game-container">
+        <div *ngIf="showScoreAnimation" class="score-float" [ngClass]="scoreAnimationClass">
+            {{ scoreAnimationText }}
+        </div>
+        <div class="score">Puntos ganados: {{ score }}</div>
+        <p><strong>¿La siguiente carta será mayor o menor?</strong></p>
+        <div class="card-scene">
+            <div class="card" [@flip]="currentVisibleCart">
+                <div class="card-face front">
+                    {{ cardA?.value }}{{ cardA?.suit }}
+                </div>
+                <div class="card-face back">
+                    {{ cardB?.value }}{{ cardB?.suit }}
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="controls">
+            <button class="button" [disabled]="isLoading" mat-raised-button color="primary" (click)="makeGuess('higher')">
+                Mayor
+            </button>
+            <button class="button" [disabled]="isLoading" mat-raised-button color="accent" (click)="makeGuess('lower')">
+                Menor
+            </button>
+        </div>
+
+        <div *ngIf="message" class="message">{{ message }}</div>
+    </div>
+</div>

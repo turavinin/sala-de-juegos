@@ -60,7 +60,7 @@ export class SupabaseService {
       .from('results')
       .select('*')
       .eq('auth_id', userIdAuth)
-      .order('total_points', { ascending: false })
+      .order('id', { ascending: false })
       .limit(10)
       .then(({ data, error }) => {
         if (error) {

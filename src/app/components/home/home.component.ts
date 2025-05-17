@@ -46,25 +46,6 @@ export class HomeComponent {
   mayorMenorGamePath = 'games/mayor-menor';
   tragamonedasGamePath = 'games/tragamonedas';
 
-  games = [
-    { name: 'Ahorcado', image: 'ahorc1.png', path: this.ahorcadoGamePath },
-    {
-      name: 'Mayor o Menor',
-      image: 'mayor2.png',
-      path: this.mayorMenorGamePath,
-    },
-    {
-      name: 'Preguntados',
-      image: '../../../../public/preg1.png',
-      path: this.preguntadosGamePath,
-    },
-    {
-      name: 'Tragamonedas',
-      image: '../../../../public/trag1.png',
-      path: this.tragamonedasGamePath,
-    },
-  ];
-
   constructor(private router: Router, private supabase: SupabaseService) {}
 
   async ngOnInit() {
@@ -99,6 +80,7 @@ export class HomeComponent {
 
   setTotalPoints() {
     this.totalPoints = this.results.reduce((acc, result) => acc + result.total_points, 0);
+    this.totalPoints = this.results[0]?.total_points || 0;
   }
 
   ngOnDestroy() {
