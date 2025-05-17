@@ -24,6 +24,7 @@ export class PreguntadosGameComponent {
   scoreAnimationClass = '';
   isLoading = false;
   points = 0;
+  game = 'Preguntados';
 
 
   constructor(private countryService: CountryService, private supabase: SupabaseService) {}
@@ -33,7 +34,7 @@ export class PreguntadosGameComponent {
   }
 
   loadNewQuestion(): void {
-    // this.isLoading = true;
+    this.isLoading = true;
     this.countryService.getQuestion().subscribe((q) => {
       this.question = q;
     });
@@ -66,7 +67,7 @@ export class PreguntadosGameComponent {
 
   ngOnDestroy(): void {
     if (this.points > 0) {
-      this.supabase.saveGamePoints(this.points).subscribe((resp) => {
+      this.supabase.saveGamePoints(this.points, this.game).subscribe((resp) => {
         if (resp.success) {
           console.log('Puntos guardados correctamente');
         } else {

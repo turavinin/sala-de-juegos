@@ -50,9 +50,26 @@ export class SupabaseService {
       .subscribe();
   }
 
-  saveGamePoints(points:number): Observable<{ success: boolean; message: string }>  {
-    return from(this._saveUserPoints(points));
+  saveGamePoints(points:number, game: string): Observable<{ success: boolean; message: string }>  {
+    return from(this._saveUserPoints(points, game));
   }
+
+  async getResults() {
+    const userIdAuth = await this.client.auth.getUser().then(({ data }) => data.user?.id);
+    return this.client
+      .from('results')
+      .select('*')
+      .eq('auth_id', userIdAuth)
+      .order('total_points', { ascending: false })
+      .limit(10)
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error loading results:', error.message);
+          return [];
+        }
+        return data;
+      });
+    }
 
   async getRecentMessages() {
     const { data, error } = await this.client
@@ -170,7 +187,7 @@ export class SupabaseService {
     }
   }
 
-  private async _saveUserPoints(points: number) {
+  private async _saveUserPoints(points: number, game: string) {
     const userAuthId = await this.getUserAuthId();
     if (!userAuthId) return { success: false, message: "User ID not found"};
     const userLastPointsData = await this.client.from('results')
@@ -183,7 +200,8 @@ export class SupabaseService {
       auth_id: item.auth_id,
       points: item.points,
       created_at: item.created_at,
-      total_points: item.total_points
+      total_points: item.total_points,
+      game: item.game,
       })) : null);
 
       console.log('userLastPointsData', userLastPointsData);
@@ -204,6 +222,7 @@ export class SupabaseService {
       auth_id: userAuthId,
       points: points,
       total_points: lastTotalPoints <= 0 ? points : lastTotalPoints + points,
+      game: game
     }
 
     console.log('userPointsToSave', userPointsToSave);
