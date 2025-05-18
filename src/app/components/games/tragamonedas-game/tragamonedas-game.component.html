@@ -1,1 +1,18 @@
-<p>tragamonedas-game works!</p>
+<div class="container">
+    <div class="game-container">
+        <div class="card-scene" *ngFor="let card of cards; let i = index">
+            <div class="card" [@flip]="currentVisibleCart" (@flip.done)="onFlipDone()">
+                <div class="card-face front" [ngStyle]="{ 'background-image': 'url(' + sideA[i].suit + ')'}">
+                </div>
+                <div class="card-face back" [ngStyle]="{ 'background-image': 'url(' + sideB[i].suit + ')' }">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="button" [disabled]="isLoading" mat-raised-button color="accent" (click)="play()">
+            Jugar
+        </button>
+    </div>
+</div>
