@@ -3,6 +3,7 @@ import { createClient, Session, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 import { from, Observable } from 'rxjs';
 import { N } from '@angular/cdk/keycodes';
+import { Results } from '../models/results.model';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,35 @@ export class SupabaseService {
       .subscribe();
   }
 
+  saveGamePoints(points:number, game: string): Observable<{ success: boolean; message: string }>  {
+    return from(this._saveUserPoints(points, game));
+  }
+
+  async getUserPoints() {
+    const userIdAuth = await this.client.auth.getUser().then(({ data }) => data.user?.id);
+    if (!userIdAuth) return null;
+
+    const userPoints = await this.client.from('results').select('total_points').eq('auth_id', userIdAuth).order('id', { ascending: false }).then(({ data }) => data ? data[0]?.total_points : null);
+    return userPoints;
+  }
+
+  async getResults() {
+    const userIdAuth = await this.client.auth.getUser().then(({ data }) => data.user?.id);
+    return this.client
+      .from('results')
+      .select('*')
+      .eq('auth_id', userIdAuth)
+      .order('id', { ascending: false })
+      .limit(10)
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error loading results:', error.message);
+          return [];
+        }
+        return data;
+      });
+    }
+
   async getRecentMessages() {
     const { data, error } = await this.client
       .from('messages')
@@ -72,6 +102,21 @@ export class SupabaseService {
     return userId;
   }
 
+  async getUserAuthId() {
+    const userIdAuth = await this.client.auth.getUser().then(({ data }) => data.user?.id);
+
+    if (!userIdAuth) return null;
+    return userIdAuth;
+  }
+
+  createSurvey(surveyData: any): Observable<{ success: boolean; message: string }> {
+    return from(this._createSurvey(surveyData));
+  }
+
+  surveyAlreadyTaken(): Observable<{ success: boolean; message: string }> {
+    return from(this._surveyAlreadyTaken());
+  }
+
    private async _registerAsync(email: string, password: string, name: string) {
     try {
       const response = await this.client.auth.signUp({ email: email, password: password });
@@ -91,7 +136,6 @@ export class SupabaseService {
    private async _isValidLogin(email: string, password: string) {
     try {
       const response = await this.client.auth.signInWithPassword( {email: email, password: password});
-      console.log("login response: ", response);
       if (response.error) return { success: false, message: response.error.message};
 
       return {success: true, message: "OK"};
@@ -118,5 +162,91 @@ export class SupabaseService {
     } catch (error) {
       return {success: false, message: "Error"};
     }
+  }
+
+  private async _createSurvey(surveyData: any) {
+    try {
+      const userId = await this.getUserId();
+      if (!userId) return { success: false, message: "User ID not found"};
+
+      const response = await this.client.from('survey').insert({ ...surveyData, user_id: userId });
+
+      if (response.error) return { success: false, message: response.error.message};
+      return { success: true, message: "OK" };
+
+    } catch (error) {
+      return {success: false, message: "Error"};
+    }
+  }
+
+  private async _surveyAlreadyTaken() {
+    try {
+      const userId = await this.getUserId();
+      if (!userId) return { success: false, message: "User ID not found"};
+
+      const response = await this.client.from('survey').select('*').eq('user_id', userId);
+
+      if (response.error) return { success: false, message: response.error.message};
+      if (response.data?.length === 0) return { success: false, message: "Survey not found"};
+      return { success: true, message: "OK" };
+
+    } catch (error) {
+      return {success: false, message: "Error"};
+    }
+  }
+
+  private async _saveUserPoints(points: number, game: string) {
+    const userAuthId = await this.getUserAuthId();
+    if (!userAuthId) return { success: false, message: "User ID not found"};
+    const userLastPointsData = await this.client.from('results')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .eq('auth_id', userAuthId)
+      .then(({ data }) => data ? data.map((item: any) => ({
+      id: item.id,
+      auth_id: item.auth_id,
+      points: item.points,
+      created_at: item.created_at,
+      total_points: item.total_points,
+      game: item.game,
+      })) : null);
+
+      console.log('userLastPointsData', userLastPointsData);
+
+    let lastTotalPoints = 0;
+    let userId = 0;
+    let created_at = '';
+
+    if (userLastPointsData && userLastPointsData.length > 0) {
+      lastTotalPoints = userLastPointsData[0].total_points || 0;
+      userId = userLastPointsData[0].id || 0;
+      created_at = userLastPointsData[0].created_at || '';
+    }
+
+    let totalPOints = lastTotalPoints <= 0 ? points : lastTotalPoints + points;
+    if (totalPOints < 0) {
+      totalPOints = 0;
+    }
+
+    const userPointsToSave: Results = {
+      id: userId,
+      created_at: created_at,
+      auth_id: userAuthId,
+      points: points,
+      total_points: totalPOints,
+      game: game
+    }
+
+    console.log('userPointsToSave', userPointsToSave);
+    
+    delete (userPointsToSave as any).id;
+    delete (userPointsToSave as any).created_at;
+    await this.client.from('results').insert(userPointsToSave).then(({ data, error }) => {
+      if (error) return { success: false, message: error.message};
+      return { success: true, message: "OK" };
+    });
+
+    return { success: true, message: "OK" };
   }
 }

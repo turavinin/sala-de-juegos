@@ -1,0 +1,91 @@
+<div class="survey-container">
+    <mat-card class="survey-card">
+        <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()" class="survey-form">
+            <h2>Encuesta</h2>
+
+        <div class="inputs">
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="firstname" type="firstname" required>
+                <mat-error *ngIf="firstname.hasError('required')">El email es obligatorio</mat-error>
+                <mat-error *ngIf="firstname.hasError('minLength')">Por lo menos debe ingresar una letra</mat-error>
+                <mat-error *ngIf="firstname.hasError('maxLength')">El máximo de caracteres es 50</mat-error>
+                <mat-error *ngIf="firstname.hasError('pattern')">Solo puede ingresar letras</mat-error>
+            </mat-form-field>
+        
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="lastname" type="lastname" required>
+                <mat-error *ngIf="lastname.hasError('required')">El apellido es obligatorio</mat-error>
+                <mat-error *ngIf="lastname.hasError('minLength')">Por lo menos debe ingresar una letra</mat-error>
+                <mat-error *ngIf="lastname.hasError('maxLength')">El máximo de caracteres es 50</mat-error>
+                <mat-error *ngIf="lastname.hasError('pattern')">Solo puede ingresar letras</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="inputs">
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Edad</mat-label>
+                <input matInput formControlName="age" type="age" required>
+                <mat-error *ngIf="age.hasError('required')">La edad es obligatoria</mat-error>
+                <mat-error *ngIf="age.hasError('min')">Tiene que ser mayor a 18 años</mat-error>
+                <mat-error *ngIf="age.hasError('max')">Tiene que ser menor a 99 años</mat-error>
+                <mat-error *ngIf="age.hasError('pattern')">Solo puede ingresar números</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Número de teléfono</mat-label>
+                <input matInput formControlName="phone" type="phone" required>
+                <mat-error *ngIf="phone.hasError('required')">El teléfono es obligatorio</mat-error>
+                <mat-error *ngIf="phone.hasError('minLength')">Tiene que tener por lo menos 5 números</mat-error>
+                <mat-error *ngIf="phone.hasError('maxLength')">Tiene que tener máximo 10 números</mat-error>
+                <mat-error *ngIf="phone.hasError('pattern')">Solo puede ingresar números</mat-error>
+            </mat-form-field>
+        </div>
+            <div class="full-width question-block">
+                <label class="question-label">¿Te gustaron los juegos?</label>
+                <mat-radio-group formControlName="question1">
+                  <mat-radio-button value="1">Sí</mat-radio-button>
+                  <mat-radio-button value="0">No</mat-radio-button>
+                </mat-radio-group>
+                <mat-error *ngIf="question1.invalid && question1.touched">Esta pregunta es obligatoria</mat-error>
+            </div>
+
+            <div class="full-width question-block">
+                <label class="question-label">¿Cómo conociste la sala de juegos?</label>
+                <div formGroupName="question2" class="checkbox-group">
+                  <mat-checkbox formControlName="option1">{{ checkboxOptions[0] }}</mat-checkbox>
+                  <mat-checkbox formControlName="option2">{{ checkboxOptions[1] }}</mat-checkbox>
+                  <mat-checkbox formControlName="option3">{{ checkboxOptions[2] }}</mat-checkbox>
+                </div>
+                <mat-error *ngIf="question2.invalid && (question2.dirty || question2.touched)">
+                  Debes seleccionar al menos una opción.
+                </mat-error>
+              </div>
+              
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>¿Recomendarías la sala de juegos?</mat-label>
+                <mat-select formControlName="recommendation" required>
+                  <mat-option value="1">Sí</mat-option>
+                  <mat-option value="0">No</mat-option>
+                </mat-select>
+                <mat-error *ngIf="recommendation.hasError('required')">
+                  Esta pregunta es obligatoria
+                </mat-error>
+              </mat-form-field>
+
+            <div class="button-container">
+                <button mat-raised-button class="survey-button" color="primary" type="submit" [disabled]="surveyForm.invalid">
+                  <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20"></mat-progress-spinner>
+                  <span *ngIf="!loading">Enviar</span>
+                </button>
+  
+                <button mat-raised-button class="survey-button" color="primary" type="button" (click)="onCancel()">
+                  <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20"></mat-progress-spinner>
+                  <span *ngIf="!loading">Cancelar</span>
+                </button>
+              </div>
+            
+          </form>
+    </mat-card>
+</div>  

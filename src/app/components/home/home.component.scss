@@ -1,109 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 .home-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 2rem;
-    gap: 3rem;
-    background-image: url('../../../../public/background2.png');
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  gap: 3rem;
+  background-image: url("../../../../public/background2.png");
+  background-size: cover;
+  background-position: center;
+  height: 90vh !important;
+  box-sizing: border-box;
+  position: relative;
+
+  mat-card {
+    width: 40vw;
+    height: 10vh;
+    border-radius: 16px;
     background-size: cover;
     background-position: center;
-    height: 90vh;
-    box-sizing: border-box;
-  
-    .chat-card {
-      width: 30vw;
-      height: 70vh;
+    box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .mat-mdc-list-item,
+  .mat-mdc-list-option {
+    height: auto !important;
+  }
+}
+
+//////////// content ////////////
+
+.principal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
+
+  .games-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .scoreboard-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    height: 100%;
+
+    .scoreboard-card {
+      height: 300px;
       display: flex;
       flex-direction: column;
-      padding: 1rem;
-      background: rgba(235, 200, 150, 0.9); 
-      border-radius: 16px;
-      box-shadow: 0 20px 20px rgba(0, 0, 0, 0.3);
-    }
-  
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-    }
-  
-    .message-bubble {
-        background: #f1f1f1;
-        border-radius: 10px;
-        padding: 0.6rem 1rem;
-        margin: 0.6rem 0;
-        display: flex;
-        flex-direction: column;
-        width: 70%;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      background: rgba(235, 212, 8, 0.432);
+      backdrop-filter: blur(6px);
+      border-radius: 20px;
+      padding: 1rem 1.5rem;
+      color: white;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+
+
+      mat-card-title {
+        margin-top: 5px;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        font-family: 'Orbitron', sans-serif !important;
       }
 
-      .my-message-bubble {
-        background: #c5f3ff;
-        border-radius: 10px;
-        padding: 0.6rem 1rem;
-        margin: 0.6rem 0;
-        display: flex;
-        flex-direction: column;
-        width: 70%;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      mat-list {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        min-height: 0;
+
+        scrollbar-width: thin;
+        scrollbar-color: #ffd54f rgba(255, 255, 255, 0.1);
       }
-  
-    .timestamp {
-      font-size: 0.75rem;
-      color: #888;
-      align-self: flex-end;
+
+      mat-list::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      mat-list::-webkit-scrollbar-thumb {
+        background-color: #ffd54f;
+        border-radius: 8px;
+      }
+
+      mat-list::-webkit-scrollbar-track {
+        background: rgba(149, 211, 3, 0.877);
+        border-radius: 8px;
+      }
+
+      mat-list-item {
+        border-bottom: 1px solid rgba(236, 34, 34, 0.1);
+
+      }
+
+      .score-entry {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0.5rem 0;
+
+
+        .player-name {
+          font-size: 1rem;
+          color: #000000;
+          width: 20%;
+        }
+
+        .player-date {
+          align-items: center;
+          font-size: 1rem;
+          color: #fbffc8;
+        }
+
+        .player-score {
+          font-size: 1.2rem;
+          color: #0b5f23;
+          margin-right: 10px !important;
+          width: 40px;
+
+          &.negative {
+            color: red;
+          }
+        }
+      }
     }
-  
-    .chat-input-container {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      margin-top: 2rem;
+
+
+  }
+}
+
+//////////// GAME CARDS ////////////
+.game-card {
+  width: 180px;
+  height: 180px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  img {
+    width: auto;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 20px;
+  }
+}
+
+//////////// CHAT BUBBLE ////////////
+.chat-toggle-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1100;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  position: fixed !important;
+  bottom: 0.5rem !important;
+  right: 0.5rem !important;
+  z-index: 100000 !important;
+}
+
+.chat-bubble {
+  position: fixed;
+  bottom: 4rem;
+  right: 2rem;
+  width: 320px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 25px 25px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 1050;
+
+  mat-card-header {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    background-color: #ffecb3;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+
+  .chat-messages {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &.own {
+      align-items: flex-end;
     }
-  
+
+    .message-bubble {
+      max-width: 80%;
+      background-color: #f1f1f1;
+      border-radius: 12px;
+      padding: 0.5rem 0.75rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      word-break: break-word;
+
+      .message-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: #555;
+
+        .timestamp {
+          font-size: 0.75rem;
+          color: #999;
+          margin-left: 1rem;
+        }
+      }
+    }
+
+    &.own .message-bubble {
+      background-color: #c5f3ff;
+    }
+  }
+
+  .chat-input-container {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
     .chat-input-field {
       flex: 1;
     }
-  
-    .cards-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.2rem;
-    }
-  
-    .ahorcado-card {
-      background-image: url("../../../../public/ahorc1.png") !important;
-      height: 15vh !important;
-    }
-  
-    .mayor-card {
-      background-image: url("../../../../public/mayor2.png") !important;
-      height: 15vh !important;
-    }
-  
-    .preguntados-card {
-      background-image: url("../../../../public/preg1.png") !important;
-      height: 15vh !important;
-    }
-  
-    .casino-card {
-      background-image: url("../../../../public/trag1.png") !important;
-      height: 15vh !important;
-    }
-  
-    mat-card {
-      width: 40vw;
-      height: 10vh;
-      border-radius: 16px;
-      background-size: cover;
-      background-position: center;
-      box-shadow: 0 30px 20px rgba(0, 0, 0, 0.3) !important;
-    }
-
-    .mat-mdc-list-item, .mat-mdc-list-option {
-        height: auto !important;
-    }
   }
-  
+}
+
+.chat-bubble {
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  width: 320px !important;
+  height: 480px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 25px 25px rgba(0, 0, 0, 0.3) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}

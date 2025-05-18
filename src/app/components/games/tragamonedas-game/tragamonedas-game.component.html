@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="game-container">
+        <div *ngIf="showScoreAnimation" class="score-float" [ngClass]="scoreAnimationClass">
+            {{ scoreAnimationText }}
+        </div>
+
+        <div class="card-scene" *ngFor="let card of cards; let i = index">
+            <div class="card" [@flip]="currentVisibleCart" (@flip.done)="i === 0 && onFlipDone()">
+                <div class="card-face front" [ngStyle]="{ 'background-image': 'url(' + sideA[i].suit + ')'}">
+                </div>
+                <div class="card-face back" [ngStyle]="{ 'background-image': 'url(' + sideB[i].suit + ')' }">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <span class="balance">Saldo: {{ playerPoints }} pts</span>
+        <mat-form-field appearance="outline" class="bet-input">
+            <mat-label>Apuesta</mat-label>
+            <input matInput type="number" [(ngModel)]="currentBet" [max]="playerPoints" min="1" />
+            <mat-error class="error" *ngIf="currentBet > playerPoints">
+                No tenés suficientes puntos
+            </mat-error>
+            <mat-error class="error" *ngIf="currentBet < 1">
+                Mínimo 1 punto
+            </mat-error>
+        </mat-form-field>
+
+        <button class="button" mat-raised-button color="accent"
+            [disabled]="isLoading || currentBet > playerPoints || currentBet < 10" (click)="play()">
+            Jugar
+        </button>
+    </div>
+</div>

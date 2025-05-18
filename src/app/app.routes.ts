@@ -10,7 +10,9 @@ export const routes: Routes = [
         children: [ 
             { path: '', redirectTo: '/login', pathMatch: 'full' },
             { path: 'home', loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent), canActivate: [AuthGuard] },
-            { path: 'about', loadComponent: () => import('./components/about/about.component').then(m => m.AboutComponent), canActivate: [AuthGuard] }
+            { path: 'about', loadComponent: () => import('./components/about/about.component').then(m => m.AboutComponent), canActivate: [AuthGuard] },
+            { path: 'survey', loadComponent: () => import('./components/survey/survey.component').then(m => m.SurveyComponent), canActivate: [AuthGuard] },
+            { path: 'games', loadChildren: () => import('./modules/games/games.module').then(m => m.GamesModule), canActivate: [AuthGuard] },
         ]
       },
     { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },

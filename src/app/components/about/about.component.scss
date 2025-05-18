@@ -1,6 +1,6 @@
 .about-container {
   display: flex;
-  height: 100vh;
+  height: 90vh;
   overflow: hidden;
   gap: 24px;
   padding: 24px;
@@ -51,11 +51,10 @@
     }
 
     mat-card-content {
-      padding: 1.5rem;
       background-color: rgba(122, 91, 46, 0.9);
       color: white;
       flex: 1;
-      overflow-y: auto;
+      overflow-y: hidden;
     }
   }
 }

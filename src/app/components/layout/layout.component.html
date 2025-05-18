@@ -5,16 +5,8 @@
   
     <span class="spacer"></span>
   
-    <!-- <button mat-icon-button [routerLink]="['/home']" matTooltip="Inicio">
-      <mat-icon #icon1="matIcon" (click)="animateIcon(icon1)" class="material-symbols-outlined">home</mat-icon>
-    </button>
-    <button mat-icon-button (click)="goToAbout()" matTooltip="Sobre Mi">
-      <mat-icon #icon2="matIcon" (click)="animateIcon(icon2)"class="material-symbols-outlined"> person </mat-icon>
-    </button>
-    <button mat-icon-button (click)="logout()" matTooltip="Salir">
-      <mat-icon #icon3="matIcon" (click)="animateIcon(icon3)" >logout</mat-icon>
-    </button> -->
     <div class="icon-container">
+      <mat-icon #icon4="matIcon" (click)="animateIcon(icon4)" (click)="goToSurvey()" class="material-symbols-outlined">content_paste</mat-icon>
       <mat-icon #icon1="matIcon" (click)="animateIcon(icon1)" (click)="goToHome()" class="material-symbols-outlined">home</mat-icon>
       <mat-icon #icon2="matIcon" (click)="animateIcon(icon2)" (click)="goToAbout()"  class="material-symbols-outlined"> person </mat-icon>
       <mat-icon #icon3="matIcon" (click)="animateIcon(icon3)" (click)="logout()">logout</mat-icon>

@@ -1,34 +1,87 @@
 <div class="home-container">
-    <!-- Chat a la izquierda -->
-    <mat-card class="chat-card">
-      <mat-card-title>Chat</mat-card-title>
-  
-      <mat-list class="chat-messages">
-        <mat-list-item *ngFor="let msg of messages">
-          <div [ngClass]="{ 'my-message-bubble': msg.user_id === currentUserId, 'message-bubble': msg.user_id !== currentUserId }">
-            <strong>{{ msg.user_name }}:</strong> {{ msg.content }}
-            <div class="timestamp">{{ msg.created_at | date:'shortTime' }}</div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-  
-      <div class="chat-input-container">
-        <mat-form-field class="chat-input-field" appearance="outline">
-          <input
-            matInput
-            [(ngModel)]="newMessage"
-            (keyup.enter)="sendMessage()"
-            placeholder="Escribí tu mensaje..."
-          />
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="sendMessage()">Enviar</button>
+  <div class="principal-container">
+    <div class="games-container">
+      <div class="game-card" (click)="goTo(ahorcadoGamePath)">
+        <img src="ahorcado2.jpeg" alt="Ahorcado" />
+        <h3>Ahorcado</h3>
       </div>
-    </mat-card>
-  
-    <div class="cards-container">
-      <mat-card class="ahorcado-card"></mat-card>
-      <mat-card class="mayor-card"></mat-card>
-      <mat-card class="preguntados-card"></mat-card>
-      <mat-card class="casino-card"></mat-card>
+
+      <div class="game-card" (click)="goTo(preguntadosGamePath)">
+        <img src="paises2.png" alt="Preguntados" />
+        <h3>Preguntados</h3>
+      </div>
+
+      <div class="game-card" (click)="goTo(mayorMenorGamePath)">
+        <img src="cartas.png" alt="Ahorcado" />
+        <h3>Mayor o Menor</h3>
+      </div>
+
+      <div class="game-card" (click)="goTo(tragamonedasGamePath)">
+        <img src="cass.png" alt="Casino" />
+        <h3>Casino</h3>
+      </div>
     </div>
-  </div>
+
+    <div class="scoreboard-container">
+      <mat-card class="scoreboard-card">
+        <mat-card-title>Puntaje total: {{ totalPoints }}</mat-card-title>
+        <mat-list dense>
+          <mat-list-item *ngFor="let result of results">
+            <div class="score-entry">
+              <span class="player-name">{{ result.game }}</span>
+              <span class="player-date">{{ result.created_at | date: 'dd/MM/yyyy' }}</span>
+              <span class="player-score" [ngClass]="{ 'negative': result.points < 0 }">{{ result.points }}</span> 
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </div>
+
+  <button
+    mat-fab
+    color="accent"
+    class="chat-toggle-button"
+    (click)="toggleChat()"
+  >
+    <mat-icon>{{ chatOpen ? "close" : "chat" }}</mat-icon>
+  </button>
+  <mat-card *ngIf="chatOpen" class="chat-bubble">
+    <mat-card-header>
+      <mat-card-title>Chat</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="chat-messages">
+      <div
+        *ngFor="let msg of messages"
+        class="message-container"
+        [ngClass]="{ own: msg.user_id === currentUserId }"
+      >
+        <div class="message-bubble">
+          <div class="message-header">
+            <strong>{{ msg.user_name }}</strong>
+            <span class="timestamp">{{
+              msg.created_at | date : "shortTime"
+            }}</span>
+          </div>
+          <div class="message-content">
+            {{ msg.content }}
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="chat-input-container">
+      <mat-form-field class="chat-input-field" appearance="outline">
+        <input
+          matInput
+          [(ngModel)]="newMessage"
+          (keyup.enter)="sendMessage()"
+          placeholder="Escribí tu mensaje..."
+        />
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,25 @@
+<div class="game-container">
+  <div *ngIf="showScoreAnimation" class="score-float" [ngClass]="scoreAnimationClass">
+    {{ scoreAnimationText }}
+  </div>
+
+  <mat-card class="game-card">
+    <mat-card-header>
+      <mat-card-title><strong>¿A qué país pertenece esta bandera?</strong></mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="game-card-content">
+      <p><strong>Selecciona la opción correcta</strong></p>
+      <img class="flag-image" [src]="question?.flagUrl" alt="Bandera" (load)="onImageLoad()" />
+      <div class="loading-overlay" *ngIf="isLoading">
+        <mat-spinner diameter="60"></mat-spinner>
+      </div>
+      <div class="options-list">
+        <button class="country-button" *ngFor="let country of question?.options" (click)="selectOption(country)"
+          [disabled]="isLoading">
+          {{ country.name }}
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+</div>
