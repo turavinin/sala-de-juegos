@@ -56,77 +56,85 @@
     max-width: 800px;
     height: 100%;
 
-.scoreboard-card {
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.034);
-  backdrop-filter: blur(6px);
-  border-radius: 20px;
-  padding: 1rem 1.5rem;
-  color: white;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  font-weight: bold;
-  
+    .scoreboard-card {
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      background: rgba(235, 212, 8, 0.432);
+      backdrop-filter: blur(6px);
+      border-radius: 20px;
+      padding: 1rem 1.5rem;
+      color: white;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
 
-  mat-card-title {
-    margin-top: 5px;
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-    font-family: 'Orbitron', sans-serif !important;
-  }
 
-  mat-list {
-    flex: 1 1 auto;       
-    overflow-y: auto;     
-    min-height: 0;        
+      mat-card-title {
+        margin-top: 5px;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        font-family: 'Orbitron', sans-serif !important;
+      }
 
-    scrollbar-width: thin;
-    scrollbar-color: #ffd54f rgba(255, 255, 255, 0.1);
-  }
+      mat-list {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        min-height: 0;
 
-  mat-list::-webkit-scrollbar {
-    width: 8px;
-  }
+        scrollbar-width: thin;
+        scrollbar-color: #ffd54f rgba(255, 255, 255, 0.1);
+      }
 
-  mat-list::-webkit-scrollbar-thumb {
-    background-color: #ffd54f;
-    border-radius: 8px;
-  }
+      mat-list::-webkit-scrollbar {
+        width: 8px;
+      }
 
-  mat-list::-webkit-scrollbar-track {
-    background: rgba(149, 211, 3, 0.877);
-    border-radius: 8px;
-  }
+      mat-list::-webkit-scrollbar-thumb {
+        background-color: #ffd54f;
+        border-radius: 8px;
+      }
 
-  mat-list-item {
-    border-bottom: 1px solid rgba(236, 34, 34, 0.1);
-    
-  }
+      mat-list::-webkit-scrollbar-track {
+        background: rgba(149, 211, 3, 0.877);
+        border-radius: 8px;
+      }
 
-  .score-entry {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0.5rem 0;
-    
+      mat-list-item {
+        border-bottom: 1px solid rgba(236, 34, 34, 0.1);
 
-    .player-name {
-      font-size: 1rem;
-      color: #000000;
+      }
+
+      .score-entry {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0.5rem 0;
+
+
+        .player-name {
+          font-size: 1rem;
+          color: #000000;
+        }
+
+        .player-date {
+          align-items: center;
+          font-size: 1rem;
+          color: #fbffc8;
+        }
+
+        .player-score {
+          font-size: 1.2rem;
+          color: #0b5f23;
+          margin-right: 10px !important;
+          width: 40px;
+
+          &.negative {
+            color: red;
+          }
+        }
+      }
     }
-
-    .player-date {
-      font-size: 1rem;
-      color: #fbffc8;
-    }
-
-    .player-score {
-      font-size: 1rem;
-      color: #1fe260;
-    }
-  }
-}
 
 
   }

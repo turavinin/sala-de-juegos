@@ -54,6 +54,14 @@ export class SupabaseService {
     return from(this._saveUserPoints(points, game));
   }
 
+  async getUserPoints() {
+    const userIdAuth = await this.client.auth.getUser().then(({ data }) => data.user?.id);
+    if (!userIdAuth) return null;
+
+    const userPoints = await this.client.from('results').select('total_points').eq('auth_id', userIdAuth).order('id', { ascending: false }).then(({ data }) => data ? data[0]?.total_points : null);
+    return userPoints;
+  }
+
   async getResults() {
     const userIdAuth = await this.client.auth.getUser().then(({ data }) => data.user?.id);
     return this.client
@@ -216,12 +224,17 @@ export class SupabaseService {
       created_at = userLastPointsData[0].created_at || '';
     }
 
+    let totalPOints = lastTotalPoints <= 0 ? points : lastTotalPoints + points;
+    if (totalPOints < 0) {
+      totalPOints = 0;
+    }
+
     const userPointsToSave: Results = {
       id: userId,
       created_at: created_at,
       auth_id: userAuthId,
       points: points,
-      total_points: lastTotalPoints <= 0 ? points : lastTotalPoints + points,
+      total_points: totalPOints,
       game: game
     }
 

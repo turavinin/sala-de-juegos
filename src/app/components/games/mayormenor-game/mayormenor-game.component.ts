@@ -84,8 +84,8 @@ export class MayormenorGameComponent {
     }
 
     const isCorrect =
-      (guess === 'higher' && userCard.value > opponentCard.value) ||
-      (guess === 'lower' && userCard.value < opponentCard.value);
+      (guess === 'higher' && userCard.value < opponentCard.value) ||
+      (guess === 'lower' && userCard.value > opponentCard.value);
 
     if (isCorrect) {
       this.score++;

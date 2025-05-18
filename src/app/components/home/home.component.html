@@ -30,7 +30,7 @@
             <div class="score-entry">
               <span class="player-name">{{ result.game }}</span>
               <span class="player-date">{{ result.created_at | date: 'dd/MM/yyyy' }}</span>
-              <span class="player-score"><span class="bonus">+</span>{{ result.points }}</span> 
+              <span class="player-score" [ngClass]="{ 'negative': result.points < 0 }">{{ result.points }}</span> 
             </div>
           </mat-list-item>
         </mat-list>
