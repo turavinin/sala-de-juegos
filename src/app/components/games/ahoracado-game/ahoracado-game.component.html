@@ -1,1 +1,55 @@
-<p>ahoracado-game works!</p>
+<div class="container">
+  <mat-card class="game-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title><strong>🎯 Juego del Ahorcado</strong></mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="game-content">
+
+
+      <div class="word-display">
+        <span *ngFor="let char of displayWord">{{ char }}</span>
+      </div>
+
+
+      <div class="hangman-container">
+        <svg width="120" height="200" viewBox="0 0 120 200" class="hangman-drawing">
+
+          <line x1="10" y1="190" x2="110" y2="190" stroke="black" stroke-width="4" />
+          <line x1="60" y1="190" x2="60" y2="20" stroke="black" stroke-width="4" />
+          <line x1="60" y1="20" x2="100" y2="20" stroke="black" stroke-width="4" />
+          <line x1="100" y1="20" x2="100" y2="40" stroke="black" stroke-width="4" />
+
+
+          <circle *ngIf="fails > 0" cx="100" cy="55" r="15" stroke="black" stroke-width="3" fill="none" />
+          <line *ngIf="fails > 1" x1="100" y1="70" x2="100" y2="110" stroke="black" stroke-width="3" />
+          <line *ngIf="fails > 2" x1="100" y1="80" x2="85" y2="95" stroke="black" stroke-width="3" />
+          <line *ngIf="fails > 3" x1="100" y1="80" x2="115" y2="95" stroke="black" stroke-width="3" />
+          <line *ngIf="fails > 4" x1="100" y1="110" x2="85" y2="135" stroke="black" stroke-width="3" />
+          <line *ngIf="fails > 5" x1="100" y1="110" x2="115" y2="135" stroke="black" stroke-width="3" />
+        </svg>
+      </div>
+
+
+      <mat-grid-list cols="9" rowHeight="50px" class="keyboard-grid">
+        <mat-grid-tile *ngFor="let letter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="guessedLetters.includes(letter) || isGameOver"
+            (click)="guess(letter)">
+            {{ letter }}
+          </button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+
+    <div class="result-message" *ngIf="isGameOver">
+      <mat-icon color="warn" *ngIf="fails >= maxFails">sentiment_very_dissatisfied</mat-icon>
+      <mat-icon color="primary" *ngIf="displayWord.join('') === word">celebration</mat-icon>
+      <p *ngIf="displayWord.join('') === word">🎉 ¡Ganaste 10 puntos!</p>
+      <p *ngIf="fails >= maxFails">💀 Perdiste. La palabra era <strong>{{ word }}</strong></p>
+      <button mat-raised-button color="accent" (click)="resetGame()">Reiniciar</button>
+    </div>
+  </mat-card>
+</div>
