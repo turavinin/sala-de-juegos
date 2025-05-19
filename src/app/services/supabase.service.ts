@@ -212,8 +212,6 @@ export class SupabaseService {
       game: item.game,
       })) : null);
 
-      console.log('userLastPointsData', userLastPointsData);
-
     let lastTotalPoints = 0;
     let userId = 0;
     let created_at = '';
@@ -237,8 +235,6 @@ export class SupabaseService {
       total_points: totalPOints,
       game: game
     }
-
-    console.log('userPointsToSave', userPointsToSave);
     
     delete (userPointsToSave as any).id;
     delete (userPointsToSave as any).created_at;
