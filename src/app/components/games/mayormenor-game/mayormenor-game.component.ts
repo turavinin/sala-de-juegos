@@ -128,7 +128,7 @@ export class MayormenorGameComponent {
     if (this.score > 0) {
       this.supabase.saveGamePoints(this.score, this.game).subscribe((resp) => {
         if (resp.success) {
-          console.log('Puntos guardados correctamente');
+          // console.log('Puntos guardados correctamente');
         } else {
           console.error('Error al guardar los puntos:', resp.message);
         }

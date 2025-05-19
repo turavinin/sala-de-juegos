@@ -225,7 +225,7 @@ export class TragamonedasGameComponent {
     if (this.betPlayer && this.finalResult !== 0) {
       this.supabase.saveGamePoints(this.finalResult, this.game).subscribe((resp) => {
         if (resp.success) {
-          console.log('Puntos guardados correctamente');
+          // console.log('Puntos guardados correctamente');
         } else {
           console.error('Error al guardar los puntos:', resp.message);
         }

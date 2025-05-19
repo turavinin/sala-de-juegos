@@ -39,18 +39,18 @@ export class CountryService {
   }
 
   getFlag(code: string): Observable<CountryResponse> {
-    // return this.http.get<CountryResponse>(`https://api.api-ninjas.com/v1/countryflag?country=${code}`, { headers: this.headers }).pipe(
-    //   map((data) => {
-    //     return data;
-    //   })
-    // );
-    const resp: CountryResponse = {
-      country: 'AR',
-      square_image_url: 'https://api-ninjas-data.s3.us-west-2.amazonaws.com/flags/1x1/858qjgtN/ar.svg',
-      rectangle_image_url: 'https://api-ninjas-data.s3.us-west-2.amazonaws.com/flags/1x1/858qjgtN/ar.svg'
-    };
+    return this.http.get<CountryResponse>(`https://api.api-ninjas.com/v1/countryflag?country=${code}`, { headers: this.headers }).pipe(
+      map((data) => {
+        return data;
+      })
+    );
+    // const resp: CountryResponse = {
+    //   country: 'AR',
+    //   square_image_url: 'https://api-ninjas-data.s3.us-west-2.amazonaws.com/flags/1x1/858qjgtN/ar.svg',
+    //   rectangle_image_url: 'https://api-ninjas-data.s3.us-west-2.amazonaws.com/flags/1x1/858qjgtN/ar.svg'
+    // };
 
-    return of(resp);
+    // return of(resp);
   }
 
 getQuestion(): Observable<Question> {
