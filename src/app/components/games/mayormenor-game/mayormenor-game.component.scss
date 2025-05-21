@@ -50,7 +50,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 5rem;
     backface-visibility: hidden;
 }
 
@@ -83,7 +83,13 @@
     color: #0c0503;
 }
 
+.red-suit {
+  color: red;
+}
 
+.black-suit {
+  color: black;
+}
 
 ////////////////////////
 
@@ -93,7 +99,7 @@
     top: 30%;
     font-size: 2rem;
     font-weight: bold;
-    animation: floatUp 1s ease-out forwards;
+    animation: floatUp 1.5s ease-out forwards;
     pointer-events: none;
     z-index: 10;
 

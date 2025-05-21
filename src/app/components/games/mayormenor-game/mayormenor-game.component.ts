@@ -79,15 +79,14 @@ export class MayormenorGameComponent {
     let opponentCard = this.currentVisibleCart === 'cardA' ? this.cardB : this.cardA;
     this.currentVisibleCart = this.currentVisibleCart === 'cardA' ? 'cardB' : 'cardA';
 
-    if (userCard.value == opponentCard.value) {
-      this.triggerScoreAnimation('¡Empate!', 'draw');
-    }
-
     const isCorrect =
       (guess === 'higher' && userCard.value < opponentCard.value) ||
       (guess === 'lower' && userCard.value > opponentCard.value);
 
-    if (isCorrect) {
+    if (userCard.value == opponentCard.value) {
+      console.log('Empate');
+      this.triggerScoreAnimation('¡Empate!', 'draw');
+    } else if (isCorrect) {
       this.score++;
       this.triggerScoreAnimation('¡Correcto! +1', 'correct');
     } else {
@@ -122,6 +121,15 @@ export class MayormenorGameComponent {
     setTimeout(() => {
       this.showScoreAnimation = false;
     }, 1000);
+  }
+
+  getSuitClass(suit: string): string {
+    if (suit === '♥' || suit === '♦') {
+      return 'red-suit';
+    } else if (suit === '♣' || suit === '♠') {
+      return 'black-suit';
+    }
+    return '';
   }
 
   ngOnDestroy(): void {

@@ -7,10 +7,10 @@
         <p><strong>¿La siguiente carta será mayor o menor?</strong></p>
         <div class="card-scene">
             <div class="card" [@flip]="currentVisibleCart">
-                <div class="card-face front">
+                <div class="card-face front" [ngClass]="getSuitClass(cardA.suit)">
                     {{ cardA.value }}{{ cardA.suit }}
                 </div>
-                <div class="card-face back">
+                <div class="card-face back" [ngClass]="getSuitClass(cardB.suit)">
                     {{ cardB.value }}{{ cardB.suit }}
                 </div>
             </div>
