@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { Results } from '../../models/results.model';
+import { ViewChild, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 
 export interface Transaction {
   game: string;
@@ -32,7 +33,10 @@ export interface Transaction {
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit, AfterViewChecked {
+
+  @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
+
   messages: any[] = [];
   results: Results[] = [];
   newMessage: string = '';
@@ -52,10 +56,28 @@ export class HomeComponent {
     this.messages = await this.supabase.getRecentMessages();
     this.subscription = this.supabase.onNewMessages((newMsg) => {
       this.messages.push(newMsg);
+      this.scrollToBottom();
     });
     this.currentUserId = await this.supabase.getUserId();
     this.results = await this.supabase.getResults();
     this.setTotalPoints();
+  }
+
+  
+  ngAfterViewInit() {
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(): void {
+    try {
+      this.scrollContainer.nativeElement.scrollTop =
+        this.scrollContainer.nativeElement.scrollHeight;
+    } catch (err) {
+    }
   }
 
   sendMessage() {
@@ -63,6 +85,7 @@ export class HomeComponent {
       this.supabase.sendMessage(this.newMessage).subscribe((resp) => {
         if (resp.success) {
           this.newMessage = '';
+          this.scrollToBottom();
         } else {
           console.error('Error sending message:', resp.message);
         }

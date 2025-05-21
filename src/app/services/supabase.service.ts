@@ -120,7 +120,17 @@ export class SupabaseService {
    private async _registerAsync(email: string, password: string, name: string) {
     try {
       const response = await this.client.auth.signUp({ email: email, password: password });
-      if (response.error) return { success: false, message: response.error.message};
+
+      console.log(response);
+
+      if (response.error)  {
+        if (response.error.code === "user_already_exists") {
+           return { success: false, message: "User already exists" };
+        }
+
+        return { success: false, message: response.error.message};
+      }
+      
       if (response.data.user?.identities?.length === 0) return { success: false, message: "User already exists" };
 
       var insertResponse = await this.client.from('user_info').insert({ name: name, auth_id: response.data.user?.id})
