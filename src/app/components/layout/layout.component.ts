@@ -43,6 +43,10 @@ export class LayoutComponent {
     });
   }
 
+  goToResults() {
+    this.router.navigate(["results"]);
+  }
+
   animateIcon(icon: MatIcon) {
     const el = icon._elementRef.nativeElement as HTMLElement;
   

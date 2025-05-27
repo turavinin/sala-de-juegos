@@ -1,8 +1,4 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { LoginComponent } from './components/login/login.component';
-import { LayoutComponent } from './components/layout/layout.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -12,6 +8,7 @@ export const routes: Routes = [
             { path: 'home', loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent), canActivate: [AuthGuard] },
             { path: 'about', loadComponent: () => import('./components/about/about.component').then(m => m.AboutComponent), canActivate: [AuthGuard] },
             { path: 'survey', loadComponent: () => import('./components/survey/survey.component').then(m => m.SurveyComponent), canActivate: [AuthGuard] },
+            { path: 'results', loadComponent: () => import('./components/results/results.component').then(m => m.ResultsComponent), canActivate: [AuthGuard] },
             { path: 'games', loadChildren: () => import('./modules/games/games.module').then(m => m.GamesModule), canActivate: [AuthGuard] },
         ]
       },

@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="leaderboard-container">
+        <div class="columns">
+            <div class="game-column" *ngFor="let game of leaderboard | keyvalue">
+                <h2 class="game-title">{{ game.key }}</h2>
+                <mat-list>
+                    <mat-list-item *ngFor="let player of game.value; let i = index">
+                        <div class="player-entry">
+                            <span class="position">#{{ i + 1 }}</span>
+                            <span class="name">{{ player.name }}</span>
+                            <span class="score"
+                                [ngClass]="{ 'positive': player.total >= 0, 'negative': player.total < 0 }">{{
+                                player.total }} pts</span>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+    </div>
+
+</div>
