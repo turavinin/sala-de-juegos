@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HttpClient } from '@angular/common/http';
 import { SupabaseService } from '../../../services/supabase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ahoracado-game',
@@ -28,7 +29,7 @@ export class AhoracadoGameComponent implements OnInit {
 
   game = 'Ahorcado';
 
-  constructor(private http: HttpClient, private supabase: SupabaseService) {
+  constructor(private router: Router, private http: HttpClient, private supabase: SupabaseService) {
   }
 
   ngOnInit(): void {
@@ -90,15 +91,18 @@ export class AhoracadoGameComponent implements OnInit {
     }
   }
 
-  ngOnDestroy(): void {
+  goHome() {
     if (this.points > 0) {
       this.supabase.saveGamePoints(this.points, this.game).subscribe((resp) => {
         if (resp.success) {
-          // console.log('Puntos guardados correctamente');
         } else {
           console.error('Error al guardar los puntos:', resp.message);
         }
+
+        this.router.navigate(['/home']);
       });
+    } else {
+      this.router.navigate(['/home']);
     }
   }
 }

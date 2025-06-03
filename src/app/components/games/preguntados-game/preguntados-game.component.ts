@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { delay } from 'rxjs';
 import { SupabaseService } from '../../../services/supabase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-preguntados-game',
@@ -27,7 +28,7 @@ export class PreguntadosGameComponent {
   game = 'Preguntados';
 
 
-  constructor(private countryService: CountryService, private supabase: SupabaseService) {}
+  constructor(private router: Router,private countryService: CountryService, private supabase: SupabaseService) {}
 
   ngOnInit(): void {
     this.loadNewQuestion();
@@ -65,15 +66,18 @@ export class PreguntadosGameComponent {
     this.isLoading = false;
   }
 
-  ngOnDestroy(): void {
+  goHome() {
     if (this.points > 0) {
       this.supabase.saveGamePoints(this.points, this.game).subscribe((resp) => {
         if (resp.success) {
-          // console.log('Puntos guardados correctamente');
         } else {
           console.error('Error al guardar los puntos:', resp.message);
         }
+
+        this.router.navigate(['/home']);
       });
+    } else {
+      this.router.navigate(['/home']);
     }
   }
 }

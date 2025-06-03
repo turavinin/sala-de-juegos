@@ -31,5 +31,10 @@
             [disabled]="isLoading || currentBet > playerPoints || currentBet < 1" (click)="play()">
             Jugar
         </button>
+
+        <button class="button out-button" mat-raised-button color="accent"
+            [disabled]="isLoading" (click)="goHome()">
+            Salir
+        </button>
     </div>
 </div>

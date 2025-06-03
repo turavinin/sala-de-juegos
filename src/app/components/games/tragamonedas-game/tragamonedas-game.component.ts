@@ -14,6 +14,7 @@ import { GamesRoutingModule } from '../../../modules/games/games-routing.module'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tragamonedas-game',
@@ -53,7 +54,7 @@ export class TragamonedasGameComponent {
   scoreAnimationText = '';
   scoreAnimationClass = '';
 
-  constructor(private supabase: SupabaseService) {
+  constructor(private router: Router, private supabase: SupabaseService) {
   }
 
   async ngOnInit() {
@@ -221,16 +222,19 @@ export class TragamonedasGameComponent {
     }, 1000);
   }
 
-  ngOnDestroy(): void {
+  goHome(){
     if (this.betPlayer && this.finalResult !== 0) {
       this.supabase.saveGamePoints(this.finalResult, this.game).subscribe((resp) => {
         if (resp.success) {
           // console.log('Puntos guardados correctamente');
+          this.router.navigate(['/home']);
         } else {
           console.error('Error al guardar los puntos:', resp.message);
+          this.router.navigate(['/home']);
         }
       });
+    } else {
+      this.router.navigate(['/home']);
     }
   }
-
 }

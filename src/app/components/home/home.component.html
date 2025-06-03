@@ -18,7 +18,7 @@
 
       <div class="game-card" (click)="goTo(tragamonedasGamePath)">
         <img src="cass.png" alt="Casino" />
-        <h3>Casino</h3>
+        <h3>Tragamonedas</h3>
       </div>
     </div>
 
@@ -50,7 +50,7 @@
       <mat-card-title>Chat</mat-card-title>
     </mat-card-header>
 
-    <mat-card-content class="chat-messages">
+    <mat-card-content class="chat-messages" #scrollContainer>
       <div
         *ngFor="let msg of messages"
         class="message-container"
@@ -60,7 +60,7 @@
           <div class="message-header">
             <strong>{{ msg.user_name }}</strong>
             <span class="timestamp">{{
-              msg.created_at | date : "shortTime"
+              msg.created_at | date : 'dd/MM/yyyy, HH:mm:ss'
             }}</span>
           </div>
           <div class="message-content">

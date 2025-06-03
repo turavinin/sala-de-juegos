@@ -5,4 +5,5 @@ export interface Results {
   points: number;
   total_points: number;
   game: string;
+  user_info_id: number;
 }

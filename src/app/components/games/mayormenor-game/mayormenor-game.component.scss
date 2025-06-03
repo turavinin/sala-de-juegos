@@ -5,7 +5,7 @@
     align-items: center;
     gap: 2rem;
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     background-image: url("../../../../../public/background2.png");
     background-size: cover;
     background-position: center;
@@ -50,7 +50,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 5rem;
     backface-visibility: hidden;
 }
 
@@ -83,6 +83,14 @@
     color: #0c0503;
 }
 
+.red-suit {
+    color: red;
+}
+
+.black-suit {
+    color: black;
+}
+
 
 
 ////////////////////////
@@ -93,7 +101,7 @@
     top: 30%;
     font-size: 2rem;
     font-weight: bold;
-    animation: floatUp 1s ease-out forwards;
+    animation: floatUp 1.5s ease-out forwards;
     pointer-events: none;
     z-index: 10;
 
@@ -152,7 +160,13 @@
     transition: background-color 0.3s, transform 0.3s;
 
     &:hover {
-      background-color: #e0e0e0;
-      transform: scale(1.05);
+        background-color: #e0e0e0;
+        transform: scale(1.05);
     }
-  }
+}
+
+.button-out {
+    margin-top: 20px !important;
+    color: #f44336;
+    width: 180px;
+}

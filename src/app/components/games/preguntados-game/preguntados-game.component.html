@@ -19,7 +19,12 @@
           {{ country.name }}
         </button>
       </div>
+
+      <button class="out-button" (click)="goHome()" [disabled]="isLoading">
+        Salir
+      </button>
+      
     </mat-card-content>
   </mat-card>
-  
+
 </div>
