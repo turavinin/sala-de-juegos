@@ -51,5 +51,7 @@
       <p *ngIf="fails >= maxFails">💀 Perdiste. La palabra era <strong>{{ word }}</strong></p>
       <button mat-raised-button color="accent" (click)="resetGame()">Reiniciar</button>
     </div>
+
+    <button class="out-button" (click)="goHome()"> Salir </button>
   </mat-card>
 </div>

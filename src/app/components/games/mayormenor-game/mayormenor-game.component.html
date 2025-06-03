@@ -26,6 +26,10 @@
             </button>
         </div>
 
+        <button class="button button-out" [disabled]="isLoading" mat-raised-button color="accent" (click)="goHome()">
+                Salir
+        </button>
+
         <div *ngIf="message" class="message">{{ message }}</div>
     </div>
 </div>

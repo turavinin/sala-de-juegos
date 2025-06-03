@@ -9,6 +9,7 @@ import {
 } from '@angular/animations';
 import { Card } from '../../../models/card.model';
 import { SupabaseService } from '../../../services/supabase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mayormenor-game',
@@ -39,7 +40,7 @@ export class MayormenorGameComponent {
   scoreAnimationText = '';
   scoreAnimationClass = '';
 
-  constructor(private supabase: SupabaseService) {
+  constructor(private router: Router, private supabase: SupabaseService) {
     this.score = 0;
     this.resetGame();
   }
@@ -84,7 +85,6 @@ export class MayormenorGameComponent {
       (guess === 'lower' && userCard.value > opponentCard.value);
 
     if (userCard.value == opponentCard.value) {
-      console.log('Empate');
       this.triggerScoreAnimation('¡Empate!', 'draw');
     } else if (isCorrect) {
       this.score++;
@@ -132,15 +132,18 @@ export class MayormenorGameComponent {
     return '';
   }
 
-  ngOnDestroy(): void {
+  goHome() {
     if (this.score > 0) {
       this.supabase.saveGamePoints(this.score, this.game).subscribe((resp) => {
         if (resp.success) {
-          // console.log('Puntos guardados correctamente');
         } else {
           console.error('Error al guardar los puntos:', resp.message);
         }
+
+        this.router.navigate(['/home']);
       });
+    } else {
+      this.router.navigate(['/home']);
     }
   }
 }
